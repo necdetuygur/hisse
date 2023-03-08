@@ -27,8 +27,9 @@ func GetRequest(url string) string {
 
 func GetPrice(q string) string {
 	str := GetRequest("https://finance.yahoo.com/quote/" + q + ".IS/")
-	str = Parse(str, `active="">(.*?)<\/fin-streamer>`, 1, "")
-	return str
+	price := Parse(str, `active="">(.*?)<\/fin-streamer>`, 1, "")
+	percent := Parse(str, `FIN_TICKER_PRICE_CHANGE_PERCENT&quot;:&quot;(.*?)&quot;`, 1, "")
+	return fmt.Sprintf("%s|%s%%", price, percent)
 }
 
 func Parse(str string, rgx string, key int, clr string) string {
