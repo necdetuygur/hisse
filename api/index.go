@@ -11,6 +11,7 @@ import (
 const userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
 
 func Handler(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Set("Access-Control-Allow-Origin", "*")
 	q := r.URL.Query().Get("q")
 	fmt.Fprintf(w, GetPrice(q))
 }
